@@ -48,6 +48,9 @@ vim ~/.config/pycodestyle
 indent-size = 2
 ```
 
+Shadowing names:
+- Disable in Pycharm via: `Settings/Preferences > Editor > Inspections > Shadowing Names`.
+
 ## Package Management
 
 Example of using pip to add a dependency:
