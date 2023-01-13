@@ -113,3 +113,5 @@ websockets==10.3
 widgetsnbextension==3.6.1
 yahoofinancials==1.6
 yarl==1.7.2
+
+yfinance~=0.2.3

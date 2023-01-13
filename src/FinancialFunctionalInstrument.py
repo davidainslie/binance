@@ -50,3 +50,25 @@ def plotReturns(fi: FinancialInstrument, kind = "ts"):
   elif kind == "hist":
     pricesWithLogReturns(fi).logReturns.hist(figsize = (12, 8), bins = int(np.sqrt(len(pricesWithLogReturns(fi)))))
     plt.title(f"Frequency of Returns: {fi.ticker}", fontsize = 15)
+
+def meanReturn(fi: FinancialInstrument, frequency: int = None):
+  if frequency is None:
+    return pricesWithLogReturns(fi).logReturns.mean() # Mean return based on daily data by default
+  else:
+    resampledPrice = prices(fi).price.resample(frequency).last()
+    resampledReturns = np.log(resampledPrice / resampledPrice.shift(1))
+
+    return resampledReturns.mean()
+
+def standardReturns(fi: FinancialInstrument, frequency: int = None):
+  if frequency is None:
+    return pricesWithLogReturns(fi).logReturns.std()
+  else:
+    resampledPrice = prices(fi).price.resample(frequency).last()
+    resampledReturns = np.log(resampledPrice / resampledPrice.shift(1))
+    return resampledReturns.std()
+
+def annualisedPerformance(fi: FinancialInstrument):
+  meanReturn = round(pricesWithLogReturns(fi).logReturns.mean() * 252, 3) # 252 trading days in a year
+  risk = round(pricesWithLogReturns(fi).logReturns.std() * np.sqrt(252), 3)
+  print(f"Return: {meanReturn} | Risk: {risk}")
