@@ -24,6 +24,7 @@ class FinancialInstrument:
 
 @cache
 def prices(fi: FinancialInstrument) -> pd.DataFrame:
+  """Retrieves (from yahoo finance) and prepares the data"""
   return yf.download(fi.ticker, fi.start, fi.end).Close.to_frame().rename(columns = { "Close": "price" })
 
 # TODO - Ignore this first iteration of `logReturns` but keeping as an example of higher order function with currying (all a tad awkward in Python)
@@ -34,16 +35,19 @@ def prices(fi: FinancialInstrument) -> pd.DataFrame:
 #   return partial(logReturns, f)
 
 def pricesWithLogReturns(fi: FinancialInstrument) -> pd.DataFrame:
+  """Calculates log returns"""
   def pricesWithLogReturns(prices: pd.DataFrame) -> pd.DataFrame:
     return prices.assign(logReturns = np.log(prices.price / prices.price.shift(1)))
 
   return pricesWithLogReturns(prices(fi))
 
 def plotPrices(fi: FinancialInstrument):
+  """Creates a price chart"""
   prices(fi).price.plot(figsize = (12, 8))
   plt.title(f"Price Chart: {fi.ticker}", fontsize = 15)
 
 def plotReturns(fi: FinancialInstrument, kind = "ts"):
+  """Plots log returns either as time series ("ts") or histogram ("hist")"""
   if kind == "ts":
     pricesWithLogReturns(fi).logReturns.plot(figsize = (12, 8))
     plt.title(f"Returns: {fi.ticker}", fontsize = 15)
@@ -52,6 +56,7 @@ def plotReturns(fi: FinancialInstrument, kind = "ts"):
     plt.title(f"Frequency of Returns: {fi.ticker}", fontsize = 15)
 
 def meanReturn(fi: FinancialInstrument, frequency: int = None):
+  """Calculates mean return"""
   if frequency is None:
     return pricesWithLogReturns(fi).logReturns.mean() # Mean return based on daily data by default
   else:
@@ -61,6 +66,7 @@ def meanReturn(fi: FinancialInstrument, frequency: int = None):
     return resampledReturns.mean()
 
 def standardReturns(fi: FinancialInstrument, frequency: int = None):
+  """Calculates the standard deviation of returns (risk)"""
   if frequency is None:
     return pricesWithLogReturns(fi).logReturns.std()
   else:
@@ -69,6 +75,7 @@ def standardReturns(fi: FinancialInstrument, frequency: int = None):
     return resampledReturns.std()
 
 def annualisedPerformance(fi: FinancialInstrument):
+  """Calculates annulized return and risk"""
   meanReturn = round(pricesWithLogReturns(fi).logReturns.mean() * 252, 3) # 252 trading days in a year
   risk = round(pricesWithLogReturns(fi).logReturns.std() * np.sqrt(252), 3)
   print(f"Return: {meanReturn} | Risk: {risk}")
