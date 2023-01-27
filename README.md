@@ -10,3 +10,4 @@
 - [Advanced Pandas Time Series](src/advanced-pandas-time-series.ipynb)
 - [OOP - Creating a Finance Class](src/oop.ipynb)
 - [FP - Creating Finance Functionality](src/oop.ipynb)
+- [Introduction to (Algorithmic) Trading, Cryptocurrencies and Binance](src/introduction-to-trading-cryptocurrencies.ipynb)
