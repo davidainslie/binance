@@ -70,6 +70,16 @@ pip install upgrade-requirements
 upgrade-requirements
 ```
 
+Note, if you see the following:
+```shell
+WARNING: There was an error checking the latest version of pip.
+```
+
+then manually upgrade `pip`:
+```shell
+pip install --upgrade pip
+```
+
 ## Jupyter notebook
 
 To pick up changes to external functions used in a notebook, have the following initial cell in your notebook:
