@@ -63,6 +63,13 @@ Then update `requirements.txt` using `freeze` (which outputs installed packages 
 pip freeze > requirements.txt
 ```
 
+To upgrade:
+```shell
+pip install upgrade-requirements
+
+upgrade-requirements
+```
+
 ## Jupyter notebook
 
 To pick up changes to external functions used in a notebook, have the following initial cell in your notebook:

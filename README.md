@@ -12,3 +12,5 @@
 - [FP - Creating Finance Functionality](src/oop.ipynb)
 - [Introduction to (Algorithmic) Trading, Cryptocurrencies and Binance](src/introduction-to-trading-cryptocurrencies.ipynb)
 - [Cryptocurrency Trading and Investing with Binance](src/cryptocurrency-trading-and-investing-with-binance.ipynb)
+- [Python Debugging](src/python-debugging.ipynb)
+- [Trading with Python and the Binance API](src/trading-with-python-and-the-binance-api.ipynb)
